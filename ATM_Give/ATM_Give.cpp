@@ -49,9 +49,11 @@ int getMoney(int amount, vector<int> kamount, vector<int> &left, vector<int> &gi
 	}
 	cout << "Cycles: " << cycle << "\n";
 	if (!best_cv.size()) return 1;
+	give.clear();
+	give.resize(k);
 	for (int i = 0; i < k; ++i) {
-		give[i] = cv[i];
-		left[i] = left[i] - cv[i];
+		give[i] = best_cv[i];
+		left[i] = left[i] - best_cv[i];
 	}
 	return 0;
 }
@@ -61,7 +63,7 @@ int main() {
 	vector<int> left = { 4,    5,    2,   5,   100, 23 };
 	vector<int> give;
 	int k = kamount.size();
-	int amount = 120;
+	int amount = 7620;
 	cout << "Giving " << amount << "\n";
 	int res = getMoney(amount, kamount, left, give);
 	if (res) {
