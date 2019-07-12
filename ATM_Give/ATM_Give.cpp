@@ -1,12 +1,14 @@
 #include <vector>
 #include <iostream>
 
-void scan_right(vector<int> &cv, int &sp) {
+using namespace std;
+
+void scan_right(vector<int> &cv, int &sp, int k) {
 	sp = k - 1;
 	++cv[sp];
 }
 
-void scan_left(vector<int> &cv, int &sp, int &finished) {
+void scan_left(vector<int> &cv, int &sp, int &finished, vector<int> &left) {
 	while (sp >= 0) {
 		if (cv[sp] <= left[sp]) break;
 		if (sp == 0) {
@@ -41,13 +43,13 @@ int getMoney(int amount, vector<int> kamount, vector<int> &left, vector<int> &gi
 			min_kcount = kcount;
 		}
 		++cycle;
-		scan_right(cv, sp);
-		scan_left(cv, sp, finished);
+		scan_right(cv, sp, k);
+		scan_left(cv, sp, finished, left);
 		if (finished) break;
 	}
 	cout << "Cycles: " << cycle << "\n";
 	if (!best_cv.size()) return 1;
-	for (int i = 0 i < k; ++i) {
+	for (int i = 0; i < k; ++i) {
 		give[i] = cv[i];
 		left[i] = left[i] - cv[i];
 	}
@@ -67,11 +69,11 @@ int main() {
 	}
 	else {
 		cout << "Give: ";
-		for (int i = 0 i < k; ++i) {
+		for (int i = 0; i < k; ++i) {
 			cout << give[i] << "x" << kamount[i] << " ";
 		}
 		cout << "\nLeft: ";
-		for (int i = 0 i < k; ++i) {
+		for (int i = 0; i < k; ++i) {
 			cout << left[i] << "x" << kamount[i] << " ";
 		}
 		cout << "\n";
